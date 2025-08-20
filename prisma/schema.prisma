@@ -1,0 +1,68 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin", "debian-openssl-1.1.x"]
+}
+
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum Profession {
+  SELF_EMPLOYED
+  BUSINESS
+  EMPLOYEE
+}
+
+enum Product {
+  IAP
+  SIP
+}
+
+enum ClientType {
+  INTERESTED
+  ENQUIRY
+  IMPORTANT
+}
+
+model IpkLeadd  {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  archived  Boolean        @default(false)
+  leadCode        String   @unique
+  location        String?
+  gender          String?
+  age             Int?
+  profession      String?
+  companyName     String?
+  designation     String?
+  product         String?
+  investmentRange String?
+  sipAmount       Int?
+  clientTypes     String[]
+  remark          String?
+  leadSource      String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("lead")
+}
+
+/* Optional: if you also want User in Mongo */
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String   @unique
+  archived  Boolean  @default(false)
+  status    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user")
+}
