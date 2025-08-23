@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common'
-import { MongooseModule } from '@nestjs/mongoose'
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 
-import { MongooseConfigService } from './database.service'
+import { MongooseConfigService } from './database.service';
 
 @Module({
   imports: [
@@ -10,4 +10,4 @@ import { MongooseConfigService } from './database.service'
     }),
   ],
 })
-export class DatabaseModule { }
+export class DatabaseModule {}
