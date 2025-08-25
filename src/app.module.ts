@@ -7,6 +7,7 @@ import { PrismaAppModule } from 'prisma';
 import './app/app.enum';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ApiConfigModule } from './app/core/config/config.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { GraphQLModule } from '@nestjs/graphql';
       sortSchema: true,
       playground: true,
     }),
+    ApiConfigModule,
     IpkLeaddModule,
     PrismaAppModule,
   ],
