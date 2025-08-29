@@ -3,16 +3,9 @@ generator client {
   binaryTargets = ["native", "darwin", "debian-openssl-1.1.x"]
 }
 
-
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
-}
-
-enum Gender {
-  MALE
-  FEMALE
-  OTHER
 }
 
 enum Profession {
@@ -32,37 +25,57 @@ enum ClientType {
   IMPORTANT
 }
 
-model IpkLeadd  {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
-  archived  Boolean        @default(false)
-  leadCode        String   @unique
-  location        String?
-  gender          String?
-  age             Int?
-  profession      String?
-  companyName     String?
-  designation     String?
-  product         String?
-  investmentRange String?
-  sipAmount       Int?
-  clientTypes     String[]
-  remark          String?
-  leadSource      String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@map("lead")
+enum UserRoles {
+  ADMIN
+  RM
+  STAFF
 }
 
-/* Optional: if you also want User in Mongo */
-model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  email     String   @unique
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+}
+
+
+
+model IpkLeadd {
+  id              String       @id @default(auto()) @map("_id") @db.ObjectId
+  leadCode        String       @unique
+  location        String?
+  gender          Gender?
+  age             Int?
+  profession      Profession?
+  companyName     String?
+  designation     String?
+  product         Product?
+  investmentRange String?
+  sipAmount       Int?
+  clientTypes     ClientType[] // array of enums is supported on Mongo
+  remark          String?
+  leadSource      String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
   archived  Boolean  @default(false)
-  status    Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+        
+}
+
+model User {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  archived  Boolean   @default(false)
+  name      String
+  email     String
+  role      UserRoles
+  gender    Gender?
+  phone     String?
+  status    Status    @default(ACTIVE)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@map("user")
 }

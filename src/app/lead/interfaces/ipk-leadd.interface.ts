@@ -1,6 +1,6 @@
+import { Gender } from 'src/app/enums/common.enum';
 import {
   ClientTypeEnum,
-  GenderEnum,
   ProductEnum,
   ProfessionEnum,
 } from '../enums/ipk-leadd.enum';
@@ -9,7 +9,7 @@ export interface IpkLeaddModel {
   id: string;
   leadCode: string;
   location?: string;
-  gender?: GenderEnum;
+  gender?: Gender;
   age?: number;
   profession?: ProfessionEnum;
   companyName?: string;

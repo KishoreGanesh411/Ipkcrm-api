@@ -1,11 +1,5 @@
-export enum GenderEnum {
-  MALE = 'MALE',
-  FEMALE = 'FEMALE',
-  OTHER = 'OTHER',
-}
-
 export enum ProfessionEnum {
-  SELF_EMPLOYED = 'self-SELF_EMPLOYED',
+  SELF_EMPLOYED = 'SELF_EMPLOYED',
   BUSINESS = 'BUSINESS',
   EMPLOYEE = 'EMPLOYEE',
 }

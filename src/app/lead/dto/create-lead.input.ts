@@ -2,10 +2,10 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 import {
   ClientTypeEnum,
-  GenderEnum,
   ProductEnum,
   ProfessionEnum,
 } from '../enums/ipk-leadd.enum';
+import { Gender } from '../../enums/common.enum';
 
 @InputType()
 export class CreateIpkLeaddInput {
@@ -15,8 +15,8 @@ export class CreateIpkLeaddInput {
   @Field({ nullable: true })
   location?: string;
 
-  @Field(() => GenderEnum, { nullable: true })
-  gender?: GenderEnum;
+  @Field(() => Gender, { nullable: true })
+  gender?: Gender;
 
   @Field(() => Int, { nullable: true })
   age?: number;

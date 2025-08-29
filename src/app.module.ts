@@ -4,10 +4,11 @@ import { AppService } from './app.service';
 import { UserService } from './app/user/user-api.service';
 import { IpkLeaddModule } from './app/lead/ipk-leadd.module';
 import { PrismaAppModule } from 'prisma';
-import './app/app.enum';
+import './app/enums/app.enum';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApiConfigModule } from './app/core/config/config.module';
+import { UserModule } from './app/user/user-api.module';
 
 @Module({
   imports: [
@@ -18,8 +19,10 @@ import { ApiConfigModule } from './app/core/config/config.module';
       playground: true,
     }),
     ApiConfigModule,
-    IpkLeaddModule,
     PrismaAppModule,
+
+    IpkLeaddModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService, UserService],
