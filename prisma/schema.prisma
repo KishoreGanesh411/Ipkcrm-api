@@ -42,28 +42,69 @@ enum Status {
   INACTIVE
 }
 
+enum LeadStatus {
+  OPEN
+  ON_HOLD
+  CLOSED
+}
+
+model Counter {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+
+  key      String @unique
+  current  Int    @default(0)
+
+  @@map("counter")
+}
+
+model RmMember {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+
+  name      String  @unique
+  active    Boolean @default(true)
+  weight    Int     @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("rm_member")
+}
 
 
 model IpkLeadd {
+
   id              String       @id @default(auto()) @map("_id") @db.ObjectId
+
+  firstName       String?
+  lastName        String?
+
+
   leadCode        String       @unique
-  location        String?
   gender          Gender?
   age             Int?
+  location        String?
+
+
   profession      Profession?
   companyName     String?
   designation     String?
   product         Product?
   investmentRange String?
   sipAmount       Int?
-  clientTypes     ClientType[] // array of enums is supported on Mongo
+  clientTypes     ClientType[]
+
   remark          String?
   leadSource      String?
+
+  assignedRM      String?
+  status          LeadStatus   @default(OPEN)
+
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
   archived  Boolean  @default(false)
-        
+  @@map("ipk_leadd")
 }
+
 
 model User {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId

@@ -16,6 +16,15 @@ export class IpkLeaddEntity {
   leadCode!: string;
 
   @Field({ nullable: true })
+  firstname?: string;
+
+  @Field({ nullable: true })
+  lastname?: string;
+
+  @Field({ nullable: true })
+  name?: string;
+
+  @Field({ nullable: true })
   location?: string;
 
   @Field(() => Gender, { nullable: true })
