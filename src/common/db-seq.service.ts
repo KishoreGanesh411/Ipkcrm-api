@@ -16,7 +16,9 @@ export class DbSeqService {
 
     const existing = await client.counter.findUnique({ where: { key } });
     if (!existing) {
-      const created = await client.counter.create({ data: { key, current: 1 } });
+      const created = await client.counter.create({
+        data: { key, current: 1 },
+      });
       return created.current;
     }
     const updated = await client.counter.update({

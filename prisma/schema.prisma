@@ -49,41 +49,33 @@ enum LeadStatus {
 }
 
 model Counter {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-
-  key      String @unique
-  current  Int    @default(0)
-
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  key     String @unique   // e.g. "lead_seq" or "rm_pointer"
+  current Int    @default(0)
   @@map("counter")
 }
 
 model RmMember {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
-
   name      String  @unique
   active    Boolean @default(true)
   weight    Int     @default(1)
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
   @@map("rm_member")
 }
 
-
 model IpkLeadd {
-
   id              String       @id @default(auto()) @map("_id") @db.ObjectId
 
   firstName       String?
   lastName        String?
-
-
-  leadCode        String       @unique
+  email           String?
+  phone           String?
+  leadCode        String?      @unique
   gender          Gender?
   age             Int?
   location        String?
-
 
   profession      Profession?
   companyName     String?
@@ -96,15 +88,18 @@ model IpkLeadd {
   remark          String?
   leadSource      String?
 
-  assignedRM      String?
+  assignedRm      User?        @relation(fields: [assignedRmId], references: [id])
+  assignedRmId    String?      @db.ObjectId
+  assignedRM      String?      // denormalized display name (optional)
+
   status          LeadStatus   @default(OPEN)
 
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
-  archived  Boolean  @default(false)
+  archived        Boolean      @default(false)
+
   @@map("ipk_leadd")
 }
-
 
 model User {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
@@ -118,5 +113,7 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
+  @@index([role, status, archived])
+  @@unique([email])
   @@map("user")
 }

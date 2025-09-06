@@ -12,6 +12,7 @@ export class CreateIpkLeaddInput {
   @Field({ nullable: true }) firstName?: string;
   @Field({ nullable: true }) lastName?: string;
   // @Field({ nullable: true }) name?: string; // only if you added `name` to Prisma
+  @Field({ nullable: true }) email?: string;
 
   @Field({ nullable: true }) location?: string;
   @Field(() => Gender, { nullable: true }) gender?: Gender;
@@ -22,7 +23,8 @@ export class CreateIpkLeaddInput {
   @Field(() => ProductEnum, { nullable: true }) product?: ProductEnum;
   @Field({ nullable: true }) investmentRange?: string;
   @Field(() => Int, { nullable: true }) sipAmount?: number;
-  @Field(() => [ClientTypeEnum], { nullable: 'itemsAndList' }) clientTypes?: ClientTypeEnum[];
+  @Field(() => [ClientTypeEnum], { nullable: 'itemsAndList' })
+  clientTypes?: ClientTypeEnum[];
   @Field({ nullable: true }) remark?: string;
   @Field({ nullable: true }) leadSource?: string;
 }

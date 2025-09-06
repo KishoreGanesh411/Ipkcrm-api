@@ -1,12 +1,9 @@
-// src/ipk-leadd/entities/ipk-leadd.entity.ts
-import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
-import {
-  ClientTypeEnum,
-  ProductEnum,
-  ProfessionEnum,
-} from '../enums/ipk-leadd.enum';
-import { Gender } from 'src/app/enums/common.enum';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 
+/**
+ * GraphQL representation of an IPK lead.  Exposes basic fields and the
+ * assigned RM user as a nested object.
+ */
 @ObjectType()
 export class IpkLeaddEntity {
   @Field(() => ID)
@@ -16,50 +13,48 @@ export class IpkLeaddEntity {
   leadCode!: string;
 
   @Field({ nullable: true })
-  firstname?: string;
+  firstName?: string;
 
   @Field({ nullable: true })
-  lastname?: string;
+  lastName?: string;
 
   @Field({ nullable: true })
-  name?: string;
+  phone?: string;
 
   @Field({ nullable: true })
-  location?: string;
-
-  @Field(() => Gender, { nullable: true })
-  gender?: Gender;
-
-  @Field(() => Int, { nullable: true })
-  age?: number;
-
-  @Field(() => ProfessionEnum, { nullable: true })
-  profession?: ProfessionEnum;
-
-  @Field({ nullable: true })
-  companyName?: string;
-
-  @Field({ nullable: true })
-  designation?: string;
-
-  @Field(() => ProductEnum, { nullable: true })
-  product?: ProductEnum;
-
-  // kept STRING to accept "<5L" | "10-25L" | "50L+"
-  @Field({ nullable: true })
-  investmentRange?: string;
-
-  @Field(() => Int, { nullable: true })
-  sipAmount?: number;
-
-  @Field(() => [ClientTypeEnum], { nullable: 'itemsAndList' })
-  clientTypes?: ClientTypeEnum[];
-
-  @Field({ nullable: true })
-  remark?: string;
+  email?: string;
 
   @Field({ nullable: true })
   leadSource?: string;
+
+  @Field({ nullable: true })
+  location?: string;
+  @Field({ nullable: true })
+  gender?: string;
+  @Field({ nullable: true })
+  age?: number;
+  @Field({ nullable: true })
+  profession?: string;
+  @Field({ nullable: true })
+  companyName?: string;
+  @Field({ nullable: true })
+  designation?: string;
+  @Field({ nullable: true })
+  product?: string;
+  @Field({ nullable: true })
+  investmentRange?: string;
+  @Field({ nullable: true })
+  sipAmount?: number;
+  @Field({ nullable: true })
+  remark?: string;
+
+  /**
+   * The ID of the RM user assigned to this lead.  Stored as a simple string
+   * rather than a relation to decouple the lead from the User model in the
+   * Prisma schema.  Frontend clients can fetch user details separately.
+   */
+  @Field({ nullable: true })
+  assignedRM?: string;
 
   @Field()
   createdAt!: Date;
